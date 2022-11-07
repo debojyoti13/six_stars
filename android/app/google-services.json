@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "361569767719",
+    "project_id": "thesixstarsproject",
+    "storage_bucket": "thesixstarsproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361569767719:android:0891c0f5dc3d54d381d902",
+        "android_client_info": {
+          "package_name": "com.example.my_new_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361569767719-tkc7v4el4ob3p14a3021n6jui997drqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY2FHRXJu5m9q_V3WvOqwV1-wAcMBWAUM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361569767719-tkc7v4el4ob3p14a3021n6jui997drqu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
