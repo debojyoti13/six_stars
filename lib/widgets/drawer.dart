@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:my_new_app/models/user_details.dart';
+import 'package:my_new_app/utils/shared_pref.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -11,6 +14,9 @@ class MyDrawer extends StatelessWidget {
     // ignore: prefer_const_declarations
     final imgUrl =
         "https://i1.rgstatic.net/ii/profile.image/1039397055123456-1624822977566_Q128/Debojyoti-Sarkar-5.jpg";
+    SharedPrefManager sp = new SharedPrefManager();
+    UserDetails ud = new UserDetails();
+    ud=sp.getPref();
     return Drawer(
       backgroundColor: Colors.black,
       child: ListView(
@@ -21,7 +27,7 @@ class MyDrawer extends StatelessWidget {
               border: const Border(bottom: BorderSide(color: Colors.white)),
             ),
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               CircleAvatar(
                 backgroundImage: NetworkImage(imgUrl),
                 radius: 34,
@@ -29,8 +35,8 @@ class MyDrawer extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                "Debojyoti Sarkar",
+              Text(
+                ud.username,
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white,
@@ -40,8 +46,8 @@ class MyDrawer extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              const Text(
-                "debojyotisarkar4@gmail.com",
+              Text(
+                ud.email,
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.white,
@@ -50,8 +56,8 @@ class MyDrawer extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              const Text(
-                "+91 7002370984",
+              Text(
+              ud.phone  ,
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.white,

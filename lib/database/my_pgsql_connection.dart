@@ -1,4 +1,5 @@
 import 'package:my_new_app/models/user_details.dart';
+import 'package:my_new_app/utils/shared_pref.dart';
 import 'package:postgres/postgres.dart';
 // import 'package:postgresql2/constants.dart';
 import 'package:postgresql2/pool.dart';
@@ -84,11 +85,8 @@ class MyDatabase {
             user.password = row[5];
             user.status = row[6];
 
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            prefs.setString('id', user.userId);
-            prefs.setString('username', user.username);
-            prefs.setString('phone', user.phone);
-            prefs.setString('email', user.email);
+            SharedPrefManager sp = new SharedPrefManager();
+            sp.setPref(user.userId,  user.username, user.phone, user.email);
           }
           if (user.status == 1) {
             print(user.password);
