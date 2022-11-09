@@ -3,6 +3,7 @@ import 'package:postgres/postgres.dart';
 // import 'package:postgresql2/constants.dart';
 import 'package:postgresql2/pool.dart';
 import 'package:postgresql2/postgresql.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyDatabase {
   PostgreSQLConnection getConnection() {
@@ -58,7 +59,7 @@ class MyDatabase {
   }
 
   Future<bool> login(String username, String password) async {
-    print("connecting to db0...");
+    print("connecting to db0... $username");
     var conn = MyDatabase().getConnection();
     try {
       await conn.open();
@@ -71,19 +72,30 @@ class MyDatabase {
         if (count.first.first != password) {
           return false;
         } else {
-          var userDetails = await conn
+          List<List<dynamic>> userDetails = await conn
               .query("SELECT * FROM users WHERE user_id='$username';");
 
           UserDetails user = UserDetails();
-          // get user details here///
-          conn.query("SELECT * FROM users WHERE user_id='$username';").then((rows) 
-          {
-            for (var row in rows) {
-              print(row.user_id); // Refer to columns by name,
-              print(row[0]); // Or by column index.
-            }
-          });
-          return true;
+          for (final row in userDetails) {
+            user.userId = row[1];
+            user.username = row[2];
+            user.phone = row[3];
+            user.email = row[4];
+            user.password = row[5];
+            user.status = row[6];
+
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setString('id', user.userId);
+            prefs.setString('username', user.username);
+            prefs.setString('phone', user.phone);
+            prefs.setString('email', user.email);
+          }
+          if (user.status == 1) {
+            print(user.password);
+            return true;
+          } else {
+            return false;
+          }
         }
       }
     } catch (e) {
