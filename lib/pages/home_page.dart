@@ -10,20 +10,10 @@ import '../database/my_pgsql_connection.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  Future operation() async {
-    CreateTables().create_users_table();
-    // String phone = "9864544409";
-    // String email = "debojyoti.s@nic.in";
-    // String username = "Debojyoti5";
-    // int userId = 1;
-    // String password = "12345";
-    // int status = 1;
-    // MyDatabase().regsiter(userId, username, phone, email, password, status);
-  }
+
 
   @override
   Widget build(BuildContext context) {
-    operation();
 
     return Scaffold(
       appBar: AppBar(

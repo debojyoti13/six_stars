@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_new_app/database/db_conn.dart';
 import 'package:my_new_app/database/my_pgsql_connection.dart';
 import 'package:my_new_app/pages/login_page.dart';
 import 'package:my_new_app/utils/route-animations.dart';
@@ -76,8 +77,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
   register() async {
     if (_formKey.currentState!.validate()) {
-      if (await MyDatabase().regsiter(user_details)) {
-        print("suckess");
+      print("calling register()");
+      Map<dynamic, dynamic> resp = await ApiConnections().register(user_details.userId, user_details.username, user_details.email, user_details.phone, user_details.password,user_details.role="1");
+      print("received status"+resp['status'].toString()+resp['message'].toString());
+      if (resp["status"]=='1') {
+        print("success");
         // show the dialog
         showDialog(
           context: context,
@@ -203,7 +207,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           },
                           onChanged: (value) async {
                             // ignore: unrelated_type_equality_checks
-                            MyDatabase db = MyDatabase();
                             if (value == "") {
                               print("xaxa");
                               setState(() {
@@ -211,7 +214,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 user_id_msg = "";
                               });
                             } else {
-                              if (await db.isPresent(value, 'users', 'user_id')) {
+                              if (await ApiConnections().isUserPresent(value)) {
                                 setState(() {
                                   user_id_msg = "Username Exists!";
                                   textColor = Colors.red;
