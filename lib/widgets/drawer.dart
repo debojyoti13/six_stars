@@ -36,7 +36,7 @@ class _MyDrawerState extends State<MyDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    final imgUrl =
+    const imgUrl =
         "https://i1.rgstatic.net/ii/profile.image/1039397055123456-1624822977566_Q128/Debojyoti-Sarkar-5.jpg";
 
     return Scaffold(
@@ -49,10 +49,10 @@ class _MyDrawerState extends State<MyDrawer> {
               decoration: BoxDecoration(
                 border: const Border(bottom: BorderSide(color: Colors.white)),
               ),
-              child: Column(
+              child:Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       backgroundImage: NetworkImage(imgUrl),
                       radius: 34,
                     ),
@@ -61,7 +61,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     ),
                     Text(
                       name,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
