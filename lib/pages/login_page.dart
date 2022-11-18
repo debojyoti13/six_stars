@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:my_new_app/database/db_conn.dart';
 import 'package:my_new_app/database/my_pgsql_connection.dart';
+import 'package:my_new_app/models/user_details.dart';
 import 'package:my_new_app/utils/route-animations.dart';
 import 'package:my_new_app/utils/routes.dart';
 import 'dart:developer';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:my_new_app/utils/shared_pref.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,6 +16,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initial();
+  }
   final imgUrl =
       "https://i1.rgstatic.net/ii/profile.image/1039397055123456-1624822977566_Q128/Debojyoti-Sarkar-5.jpg";
 
@@ -54,6 +62,13 @@ class _LoginPageState extends State<LoginPage> {
           ),
         )) ??
         false;
+  }
+
+  void initial() async {
+    SharedPrefManager sp = SharedPrefManager();
+    if(await sp.isLoggedIn()){
+      moveToHome();
+    }
   }
 
   @override
@@ -220,6 +235,17 @@ class _LoginPageState extends State<LoginPage> {
         setState(() {
           showAnim = false;
         });
+        //store user details
+        UserDetails userDetails=UserDetails();
+        userDetails.token=resp['status'];
+        userDetails.userId=resp['user_id'];
+        userDetails.username=resp['user_name'];
+        userDetails.email=resp['email'];
+        userDetails.phone=resp['phone'];
+        userDetails.role=resp['role'];
+        userDetails.active_status=resp['active_status'].toString();
+        storeUserDetails(userDetails);
+
         moveToHome();
       } else {
         setState(() {
@@ -239,5 +265,13 @@ class _LoginPageState extends State<LoginPage> {
             });
       }
     }
+  }
+
+  void storeUserDetails(UserDetails user) {
+    print("Storeing udetails");
+    SharedPrefManager sharedPrefManager = SharedPrefManager();
+    sharedPrefManager.storeUser(user);
+    sharedPrefManager.storeToken(user.token);
+    print("doneee");
   }
 }

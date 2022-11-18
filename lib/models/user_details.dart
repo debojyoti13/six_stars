@@ -8,4 +8,6 @@ class UserDetails {
   String password = '';
   String status = '1';
   String role = '1';
+  String token ='';
+  String active_status='';
 }

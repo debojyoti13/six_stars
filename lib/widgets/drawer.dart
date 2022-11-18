@@ -26,7 +26,7 @@ class _MyDrawerState extends State<MyDrawer> {
   void initial() async {
     UserDetails ud = UserDetails();
     SharedPrefManager sp = SharedPrefManager();
-    ud = await sp.getPref();
+    ud = await sp.getUser();
     setState(() {
       name = ud.username;
       email = ud.email;
@@ -39,8 +39,7 @@ class _MyDrawerState extends State<MyDrawer> {
     const imgUrl =
         "https://i1.rgstatic.net/ii/profile.image/1039397055123456-1624822977566_Q128/Debojyoti-Sarkar-5.jpg";
 
-    return Scaffold(
-      body: Drawer(
+    return Drawer(
         backgroundColor: Colors.black,
         child: ListView(
           children: [
@@ -207,7 +206,7 @@ class _MyDrawerState extends State<MyDrawer> {
             )
           ],
         ),
-      ),
-    );
+      );
+
   }
 }
