@@ -67,7 +67,9 @@ class _LoginPageState extends State<LoginPage> {
   void initial() async {
     SharedPrefManager sp = SharedPrefManager();
     if(await sp.isLoggedIn()){
-      moveToHome();
+      // moveToHome();
+      await Navigator.of(context).push(RouteAnimations().createHomeRoute());
+
     }
   }
 
